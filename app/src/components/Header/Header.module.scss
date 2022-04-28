@@ -1,0 +1,30 @@
+@import "../../assets/scss/variables";
+@import "../../assets/scss/mixins";
+
+.header {
+    padding: 16px 0;
+    background-color: $blue;
+}
+
+.header__wrapper {
+    @include dflex(flex-start);
+
+    flex-wrap: wrap;
+    width: calc(100% - 20px);
+    max-width: calc($wrapper-max-width + 30px);
+    margin: 0 auto;
+}
+
+.header__logo {
+    margin-right: 22px;
+}
+
+@include mobile() {
+    .header {
+        padding: 12px 0;
+    }
+
+    .header__logo {
+        margin-right: 10px;
+    }
+}

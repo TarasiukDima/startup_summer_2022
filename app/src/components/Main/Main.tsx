@@ -1,12 +1,7 @@
 import React, { FC } from 'react';
-import { TChildrens } from '../../commonTypes';
+import { IWrapperElProps } from '../../commonTypes';
 
-interface IMainProps {
-    className?: string;
-    children: TChildrens;
-}
-
-const Main: FC<IMainProps> = ({ children, className }) => {
+const Main: FC<IWrapperElProps> = ({ children, className }) => {
     return <main className={className || ''}>{children}</main>;
 };
 

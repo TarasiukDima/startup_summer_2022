@@ -1,0 +1,24 @@
+@import "../../assets/scss/variables";
+@import "../../assets/scss/mixins";
+
+.logo {
+    width: $logoHeight;
+    height: $logoHeight;
+
+    &:hover {
+        transform: scale(1.2);
+    }
+}
+
+.logo__img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+@include mobile() {
+    .logo {
+        width: calc($logoHeight - 8px);
+        height: calc($logoHeight - 8px);
+    }
+}

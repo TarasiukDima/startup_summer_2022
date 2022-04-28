@@ -1,0 +1,61 @@
+@import "../../assets/scss/variables";
+@import "../../assets/scss/mixins";
+
+.form {
+    position: relative;
+    z-index: 1;
+    flex-grow: 1;
+    max-width: 500px;
+}
+
+.form__label {
+    position: relative;
+    z-index: 1;
+    display: block;
+    width: 100%;
+
+    &:before {
+        @include psevdo("", absolute, 50%, 1);
+
+        left: 19px;
+        z-index: 1;
+        width: 14px;
+        height: 14px;
+        background: url(../../assets/img/search.svg) no-repeat center center;
+        background-size: contain;
+        transform: translateY(-50%);
+    }
+}
+
+.form__label_search {
+    display: block;
+    width: 100%;
+    padding: 12px 14px 12px 44px;
+    font-size: $inputSearchTextSize;
+    border: none;
+    border-radius: $borderRadius;
+    color: $grey;
+    background-color: $whiteColor;
+}
+
+.form__submit {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -10;
+    width: 1px;
+    height: 1px;
+    clip-path: polygon(0 0, 0 0, 0 0, 0 0);
+}
+
+@include mobile() {
+    .form__label {
+        &:before {
+            left: 8px;
+        }
+    }
+
+    .form__label_search {
+        padding: 8px 12px 8px 28px;
+    }
+}

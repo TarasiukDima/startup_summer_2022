@@ -1,0 +1,17 @@
+@import "../../../assets/scss/variables";
+@import "../../../assets/scss/mixins";
+
+.wrapper {
+    width: calc(100% - 30px);
+    max-width: $wrapper-max-width;
+    margin: 0 auto;
+}
+
+@include desctop() {
+}
+@include tablet() {
+}
+@include smallTablet() {
+}
+@include mobile() {
+}
