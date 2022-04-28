@@ -1,8 +1,18 @@
 import React from 'react';
-import './App.scss';
+import Header from '../Header';
+import Main from '../Main';
+import PageContent from '../PageContent';
 
 function App() {
-    return <div className="App"></div>;
+    return (
+        <>
+            <Header />
+
+            <Main>
+                <PageContent />
+            </Main>
+        </>
+    );
 }
 
 export default App;
