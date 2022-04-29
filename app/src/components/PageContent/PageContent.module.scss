@@ -1,0 +1,81 @@
+@import "../../assets/scss/variables";
+@import "../../assets/scss/mixins";
+
+.main {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    width: 100%;
+    padding: 28px 0;
+}
+
+.not__content {
+    position: relative;
+    z-index: 1;
+    margin: auto;
+    text-align: center;
+    line-height: 1.4;
+    font-size: 22px;
+    color: $grey;
+
+    &:before {
+        @include psevdo();
+
+        left: 50%;
+        width: $widthNotFoundImgs;
+        background-repeat: no-repeat;
+        background-size: contain;
+        background-position: center center;
+        transform: translateX(-50%);
+    }
+
+    span {
+        display: block;
+    }
+
+    &_start {
+        padding-top: calc($widthNotFoundImgs + 46px);
+
+        &:before {
+            height: $widthNotFoundImgs;
+            background-image: url(../../assets/img/search.svg);
+        }
+    }
+
+    &_found {
+        padding-top: calc($widthNotFoundImgs + 52px);
+
+        &:before {
+            height: calc($widthNotFoundImgs + 10px);
+            background-image: url(../../assets/img/no_found.svg);
+        }
+    }
+
+}
+
+@include mobile() {
+    .not__content {
+        font-size: 20px;
+
+        &:before {
+            width: calc($widthNotFoundImgs - 20px);
+        }
+
+        &_start {
+            padding-top: calc($widthNotFoundImgs + 5px);
+
+            &:before {
+                height: calc($widthNotFoundImgs - 20px);
+            }
+        }
+
+        &_found {
+            padding-top: calc($widthNotFoundImgs + 15px);
+
+            &:before {
+                height: calc($widthNotFoundImgs - 10px);
+            }
+        }
+
+    }
+}

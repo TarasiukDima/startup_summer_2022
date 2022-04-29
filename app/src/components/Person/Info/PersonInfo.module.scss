@@ -1,0 +1,164 @@
+@import "../../../assets/scss/variables";
+@import "../../../assets/scss/mixins";
+
+.person_repository__people {
+    flex-shrink: 0;
+    width: calc($personPhotoSize + 30px);
+    margin-right: $personPhotoMargin;
+}
+
+.people_info {
+    &__img {
+        width: $personPhotoSize;
+        height: $personPhotoSize;
+        margin-bottom: 29px;
+        border-radius: 50%;
+        overflow: hidden;
+        object-fit: cover;
+
+        filter: brightness(0);
+    }
+
+    &__name {
+        margin-bottom: 12px;
+        font-weight: bold;
+        font-size: 26px;
+    }
+
+    &__login {
+        margin-bottom: 25px;
+        font-size: 18px;
+        color: $blue;
+    }
+
+    &__sub {
+        @include dflex(flex-start);
+
+        flex-wrap: wrap;
+        font-size: 16px;
+        color: $black;
+
+        span {
+            position: relative;
+            z-index: 1;
+
+            & ~ span {
+                margin-left: 20px;
+            }
+
+            &:before {
+                @include psevdo("", absolute, 50%, 1);
+
+                left: 0;
+                background-size: contain;
+                background-position: center center;
+                background-repeat: no-repeat;
+                transform: translateY(-50%);
+            }
+        }
+    }
+
+    &__followers {
+        padding-left: 32px;
+        &:before {
+            width: 24px;
+            height: 24px;
+            background-image: url(../../../assets/img/persons.svg);
+        }
+    }
+
+    &__following {
+        padding-left: 28px;
+        &:before {
+            width: 16px;
+            height: 16px;
+            background-image: url(../../../assets/img/people.svg);
+        }
+    }
+}
+
+@include large() {
+    .person_repository__people {
+        width: calc($personPhotoSize - 10px);
+        margin-right: 5%;
+    }
+
+    .people_info {
+        &__img {
+            width: $personPhotoSize - 40px;
+            height: $personPhotoSize - 40px;
+        }
+        &__sub {
+            span {
+                & ~ span {
+                    margin-left: 10px;
+                }
+            }
+        }
+
+        &__followers {
+            padding-left: 28px;
+
+            &:before {
+                width: 20px;
+                height: 20px;
+            }
+        }
+
+        &__following {
+            padding-left: 18px;
+
+            &:before {
+                width: 14px;
+                height: 14px;
+            }
+        }
+    }
+}
+
+@include desctop() {
+    .people_info {
+        &__name {
+            margin-bottom: 10px;
+            font-size: 24px;
+        }
+
+        &__login {
+            margin-bottom: 20px;
+        }
+    }
+}
+
+@include tablet() {
+    .people_info {
+        width: 100%;
+        margin-bottom: 30px;
+        text-align: center;
+
+        &__img {
+            margin: 0 auto 25px;
+        }
+
+        &__sub {
+            justify-content: center;
+        }
+    }
+}
+
+@include mobile() {
+    .people_info {
+        &__img {
+            width: 150px;
+            height: 150px;
+            margin-bottom: 10px;
+        }
+
+        &__name {
+            font-size: 22px;
+        }
+
+        &__login {
+            margin-bottom: 10px;
+        }
+    }
+}

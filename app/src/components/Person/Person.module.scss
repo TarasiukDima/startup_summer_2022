@@ -1,0 +1,18 @@
+@import "../../assets/scss/variables";
+@import "../../assets/scss/mixins";
+
+.person_repository {
+    @include dflex(flex-start, flex-start);
+
+    align-self: flex-start;
+    width: calc(100% - 30px);
+    max-width: $wrapper-max-width;
+    margin: 0 auto;
+    flex-grow: 1;
+}
+
+@include tablet() {
+    .person_repository {
+        flex-direction: column;
+    }
+}

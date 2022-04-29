@@ -47,9 +47,15 @@ li {
 }
 
 a {
-  display: block;
+  display: inline-block;
+  width: max-content;
+  max-width: 100%;
   text-decoration: none;
   transition: $transitionTime;
+
+  &:hover {
+      color: $red;
+  }
 }
 
 svg,

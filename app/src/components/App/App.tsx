@@ -1,18 +1,15 @@
-import React from 'react';
+import React, { FC } from 'react';
 import Header from '../Header';
-import Main from '../Main';
 import PageContent from '../PageContent';
 
-function App() {
+const App: FC = () => {
     return (
         <>
             <Header />
 
-            <Main>
-                <PageContent />
-            </Main>
+            <PageContent />
         </>
     );
-}
+};
 
 export default App;
