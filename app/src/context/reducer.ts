@@ -3,7 +3,7 @@ import { varientsActions } from './actions';
 
 export interface IReducerAction {
     type: varientsActions;
-    payload?: Array<IReposItem> | IPersonObjInfo | string | number;
+    payload?: Array<IReposItem> | IPersonObjInfo | string | number | boolean;
 }
 
 type TReducerApp = (state: IState, action: IReducerAction) => IState;
@@ -12,6 +12,26 @@ export const appReducer: TReducerApp = (state: IState, action: IReducerAction): 
     const { type, payload } = action;
 
     switch (type) {
+        case varientsActions.CHANGE_LOADING:
+            return {
+                ...state,
+                isLoadingUser: payload as boolean,
+            };
+        case varientsActions.CHANGE_LOADING_NEWPAGE:
+            return {
+                ...state,
+                isLoadingRepos: payload as boolean,
+            };
+        case varientsActions.CHANGE_ERROR_TEXT_USER:
+            return {
+                ...state,
+                errorTextUser: payload as string,
+            };
+        case varientsActions.CHANGE_ERROR_TEXT_REPOS:
+            return {
+                ...state,
+                errorTextRepos: payload as string,
+            };
         case varientsActions.CHANGE_SEARCH_VALUE:
             return {
                 ...state,

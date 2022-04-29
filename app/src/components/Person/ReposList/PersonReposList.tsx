@@ -1,18 +1,23 @@
 import React, { useContext } from 'react';
+import ReactPaginate from 'react-paginate';
 import Paragraph from '../../general/Paragraph';
 import ContentWrapper from '../../general/ContentWrapper';
 import Spinner from '../../Spinner';
 import PersonReposItem from './Item';
 import { GlobalAppContext, IReposItem } from '../../../context';
+import {
+    changeCurrentPageAction,
+    changeErrorReposAction,
+    changeListReposAction,
+    changeLoadingPageAction,
+} from '../../../context/actions';
+import { apiGetReposUser, COUNT_EL_IN_PAGE } from '../../../service';
 import { TChildrens, TGetContent } from '../../../commonTypes';
 import css from './PersonReposList.module.scss';
-import ReactPaginate from 'react-paginate';
-import { changeCurrentPageAction } from '../../../context/actions';
-const COUNT_EL_IN_PAGE = 4;
 
 const PersonReposList = () => {
     const {
-        state: { isLoadingRepos, listRepos, currentPage, maxPage, reposCount },
+        state: { searchValue, isLoadingRepos, listRepos, currentPage, maxPage, reposCount },
         dispatch,
     } = useContext(GlobalAppContext);
 
@@ -38,8 +43,18 @@ const PersonReposList = () => {
         );
     };
 
-    const handlePageClick = ({ selected }: { selected: number }) => {
-        dispatch(changeCurrentPageAction(selected + 1));
+    const handlePageClick = async ({ selected }: { selected: number }) => {
+        const newPage = selected + 1;
+        dispatch(changeCurrentPageAction(newPage));
+        dispatch(changeLoadingPageAction(true));
+
+        const { data: reposData, errorText: reposError } = await apiGetReposUser(
+            searchValue,
+            newPage
+        );
+        dispatch(changeListReposAction(reposData as Array<IReposItem>));
+        dispatch(changeErrorReposAction(reposError));
+        dispatch(changeLoadingPageAction(false));
     };
 
     const startNumberReposElInPage = (currentPage - 1) * COUNT_EL_IN_PAGE;
@@ -55,29 +70,33 @@ const PersonReposList = () => {
 
             <ContentWrapper className={css.repositories__wrapper}>{getContent()}</ContentWrapper>
 
-            <ContentWrapper className={css.repositories__pagination}>
-                <Paragraph className={css.repositories__pagination_title}>
-                    {`${startNumberReposElInPage}-${endNumberReposElInPage} of ${reposCount} items`}
-                </Paragraph>
+            <>
+                {reposCount > 4 && (
+                    <ContentWrapper className={css.repositories__pagination}>
+                        <Paragraph className={css.repositories__pagination_title}>
+                            {`${startNumberReposElInPage}-${endNumberReposElInPage} of ${reposCount} items`}
+                        </Paragraph>
 
-                <ReactPaginate
-                    containerClassName={css.repositories__pagination_container}
-                    pageClassName={css.repositories__pagination_item}
-                    previousClassName={css.previous}
-                    nextClassName={css.next}
-                    breakClassName={css.break}
-                    activeClassName={css.active}
-                    disabledClassName={css.disable}
-                    pageCount={maxPage}
-                    pageRangeDisplayed={5}
-                    forcePage={currentPage - 1}
-                    previousLabel="<"
-                    nextLabel=">"
-                    breakLabel="..."
-                    onPageChange={handlePageClick}
-                    renderOnZeroPageCount={undefined}
-                />
-            </ContentWrapper>
+                        <ReactPaginate
+                            containerClassName={css.repositories__pagination_container}
+                            pageClassName={css.repositories__pagination_item}
+                            previousClassName={css.previous}
+                            nextClassName={css.next}
+                            breakClassName={css.break}
+                            activeClassName={css.active}
+                            disabledClassName={css.disable}
+                            pageCount={maxPage}
+                            pageRangeDisplayed={5}
+                            forcePage={currentPage - 1}
+                            previousLabel="<"
+                            nextLabel=">"
+                            breakLabel="..."
+                            onPageChange={handlePageClick}
+                            renderOnZeroPageCount={undefined}
+                        />
+                    </ContentWrapper>
+                )}
+            </>
         </ContentWrapper>
     );
 };

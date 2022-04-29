@@ -24,6 +24,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "lint": "eslint src --fix",
     "test": "react-scripts test",
     "testcoverage": "react-scripts test --coverage --watchAll=false",
     "eject": "react-scripts eject"
