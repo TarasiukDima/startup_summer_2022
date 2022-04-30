@@ -6,3 +6,6 @@
  * Typescript
  * Eslint
  * Axios
+
+### Deploy
+(link)[https://creative-sunburst-963fe6.netlify.app/]
