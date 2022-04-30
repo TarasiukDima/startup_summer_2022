@@ -19,9 +19,8 @@ export interface IReposItem {
 export type IState = {
     isLoadingUser: boolean;
     isLoadingRepos: boolean;
+    isSearchingUser: boolean;
     searchValue: string;
-    errorTextUser: string;
-    errorTextRepos: string;
     listRepos: Array<IReposItem>;
     personInfo: null | IPersonObjInfo;
     currentPage: number;
@@ -32,9 +31,8 @@ export type IState = {
 export const INITIAL_STATE: IState = {
     isLoadingUser: false,
     isLoadingRepos: false,
+    isSearchingUser: false,
     searchValue: '',
-    errorTextUser: '',
-    errorTextRepos: '',
     listRepos: [
         // {
         //     name: 'react-hot-loader',

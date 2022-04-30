@@ -9,13 +9,13 @@ import css from './PageContent.module.scss';
 
 const PageContent: FC = () => {
     const {
-        state: { isLoadingUser, searchValue, personInfo },
+        state: { isSearchingUser, isLoadingUser, personInfo },
     } = useContext(GlobalAppContext);
 
     const getContent: TGetContent = (): TChildrens => {
         if (isLoadingUser) return <Spinner />;
 
-        if (!searchValue && !personInfo) {
+        if (!isSearchingUser && !personInfo) {
             return (
                 <Paragraph className={`${css.not__content} ${css.not__content_start}`}>
                     <span>Start with searching</span>
@@ -24,7 +24,7 @@ const PageContent: FC = () => {
             );
         }
 
-        if (searchValue && !personInfo) {
+        if (isSearchingUser && !personInfo) {
             return (
                 <Paragraph className={`${css.not__content} ${css.not__content_found}`}>
                     User not found

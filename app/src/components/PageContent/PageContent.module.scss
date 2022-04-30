@@ -51,6 +51,15 @@
         }
     }
 
+    &_error {
+        padding-top: calc($widthNotFoundImgs + 52px);
+
+        &:before {
+            height: calc($widthNotFoundImgs + 10px);
+            background-image: url(../../assets/img/empty.svg);
+        }
+    }
+
 }
 
 @include mobile() {

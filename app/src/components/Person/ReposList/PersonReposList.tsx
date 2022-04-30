@@ -7,7 +7,6 @@ import PersonReposItem from './Item';
 import { GlobalAppContext, IReposItem } from '../../../context';
 import {
     changeCurrentPageAction,
-    changeErrorReposAction,
     changeListReposAction,
     changeLoadingPageAction,
 } from '../../../context/actions';
@@ -45,15 +44,12 @@ const PersonReposList = () => {
 
     const handlePageClick = async ({ selected }: { selected: number }) => {
         const newPage = selected + 1;
-        dispatch(changeCurrentPageAction(newPage));
         dispatch(changeLoadingPageAction(true));
+        dispatch(changeCurrentPageAction(newPage));
 
-        const { data: reposData, errorText: reposError } = await apiGetReposUser(
-            searchValue,
-            newPage
-        );
+        const { data: reposData } = await apiGetReposUser(searchValue, newPage);
+
         dispatch(changeListReposAction(reposData as Array<IReposItem>));
-        dispatch(changeErrorReposAction(reposError));
         dispatch(changeLoadingPageAction(false));
     };
 

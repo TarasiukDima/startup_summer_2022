@@ -4,8 +4,7 @@ import { IReducerAction } from './reducer';
 export enum varientsActions {
     CHANGE_LOADING = 'CHANGE_LOADING',
     CHANGE_LOADING_NEWPAGE = 'CHANGE_LOADING_NEWPAGE',
-    CHANGE_ERROR_TEXT_USER = 'CHANGE_ERROR_TEXT_USER',
-    CHANGE_ERROR_TEXT_REPOS = 'CHANGE_ERROR_TEXT_REPOS',
+    CHANGE_IS_SEARCHING = 'CHANGE_IS_SEARCHING',
     CHANGE_SEARCH_VALUE = 'CHANGE_SEARCH_VALUE',
     CHANGE_LIST_REPOS = 'CHANGE_LIST_REPOS',
     CHANGE_PERSON_INFO = 'CHANGE_PERSON_INFO',
@@ -13,6 +12,7 @@ export enum varientsActions {
     CHANGE_MAX_PAGE = 'CHANGE_MAX_PAGE',
     CHANGE_COUNT_REPOS = 'CHANGE_COUNT_REPOS',
 }
+
 export const changeLoadingAction = (isLoading: boolean): IReducerAction => ({
     type: varientsActions.CHANGE_LOADING,
     payload: isLoading,
@@ -23,14 +23,9 @@ export const changeLoadingPageAction = (isLoading: boolean): IReducerAction => (
     payload: isLoading,
 });
 
-export const changeErrorUserAction = (errorText: string): IReducerAction => ({
-    type: varientsActions.CHANGE_ERROR_TEXT_USER,
-    payload: errorText,
-});
-
-export const changeErrorReposAction = (errorText: string): IReducerAction => ({
-    type: varientsActions.CHANGE_ERROR_TEXT_REPOS,
-    payload: errorText,
+export const changeIsSearchingAction = (wasSearching: boolean): IReducerAction => ({
+    type: varientsActions.CHANGE_IS_SEARCHING,
+    payload: wasSearching,
 });
 
 export const changeSearchStringAction = (searchValue: string): IReducerAction => ({
@@ -43,7 +38,7 @@ export const changeListReposAction = (apiCards: Array<IReposItem>): IReducerActi
     payload: apiCards,
 });
 
-export const changePersonInfoAction = (personInfo: IPersonObjInfo): IReducerAction => ({
+export const changePersonInfoAction = (personInfo: IPersonObjInfo | null): IReducerAction => ({
     type: varientsActions.CHANGE_PERSON_INFO,
     payload: personInfo,
 });
