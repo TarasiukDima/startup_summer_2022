@@ -1,1 +1,1 @@
-export { default } from './PersonReposList';
+export { default } from './PersonReposItem';

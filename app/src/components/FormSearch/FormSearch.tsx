@@ -3,30 +3,13 @@ import Input from '../general/Input';
 import Label from '../general/Label';
 import { GlobalAppContext, IPersonObjInfo, IReposItem } from '../../context';
 import {
-    changeCountRepostAction,
-    changeCurrentPageAction,
-    changeIsSearchingAction,
-    changeListReposAction,
     changeLoadingAction,
-    changeMaxPageNumberAction,
-    changePersonInfoAction,
     changeSearchStringAction,
+    changeStateAction,
 } from '../../context/actions';
 import { TChangeElHandler } from '../../commonTypes';
 import css from './FormSearch.module.scss';
 import { apiGetReposUser, apiGetUser, COUNT_EL_IN_PAGE } from '../../service';
-
-interface IDispatchingProps {
-    currentPage: number;
-    maxPage: number;
-    personInfo: null | IPersonObjInfo;
-    reposList: Array<IReposItem>;
-    countRepos: number;
-    isSearchingUser: boolean;
-    loading: boolean;
-}
-
-type TDispatchingInfo = (obj: IDispatchingProps) => void;
 
 const FormSearch: FC = () => {
     const {
@@ -40,24 +23,6 @@ const FormSearch: FC = () => {
         dispatch(changeSearchStringAction(event.target.value));
     };
 
-    const dispathingInfo: TDispatchingInfo = ({
-        currentPage,
-        maxPage,
-        personInfo,
-        reposList,
-        countRepos,
-        isSearchingUser,
-        loading,
-    }) => {
-        dispatch(changeCurrentPageAction(currentPage));
-        dispatch(changeMaxPageNumberAction(maxPage));
-        dispatch(changePersonInfoAction(personInfo));
-        dispatch(changeListReposAction(reposList));
-        dispatch(changeCountRepostAction(countRepos));
-        dispatch(changeIsSearchingAction(isSearchingUser));
-        dispatch(changeLoadingAction(loading));
-    };
-
     const submitInputHandler: TChangeElHandler<HTMLFormElement> = async (
         event: React.ChangeEvent<HTMLFormElement>
     ): Promise<void> => {
@@ -65,31 +30,35 @@ const FormSearch: FC = () => {
         dispatch(changeLoadingAction(true));
 
         if (!searchValue) {
-            dispathingInfo({
-                currentPage: 1,
-                maxPage: 1,
-                personInfo: null,
-                reposList: [],
-                countRepos: 0,
-                isSearchingUser: false,
-                loading: false,
-            });
+            dispatch(
+                changeStateAction({
+                    isLoadingUser: false,
+                    isSearchingUser: false,
+                    listRepos: [],
+                    personInfo: null,
+                    currentPage: 1,
+                    maxPage: 1,
+                    reposCount: 0,
+                })
+            );
             return;
         }
 
         const { data: personInfo, countRepos } = await apiGetUser(searchValue);
-        const { data: reposList } = await apiGetReposUser(searchValue, 1);
+        const { data: listRepos } = await apiGetReposUser(searchValue, 1);
         const maxPage = Math.ceil((countRepos || 1) / COUNT_EL_IN_PAGE);
 
-        dispathingInfo({
-            currentPage: 1,
-            maxPage: maxPage,
-            personInfo: personInfo as IPersonObjInfo,
-            reposList: reposList as Array<IReposItem>,
-            countRepos: countRepos || 1,
-            isSearchingUser: true,
-            loading: false,
-        });
+        dispatch(
+            changeStateAction({
+                isLoadingUser: false,
+                isSearchingUser: true,
+                listRepos: listRepos as Array<IReposItem>,
+                personInfo: personInfo as IPersonObjInfo,
+                currentPage: 1,
+                maxPage: maxPage,
+                reposCount: countRepos,
+            })
+        );
     };
 
     return (

@@ -1,7 +1,8 @@
-import { IReposItem, IPersonObjInfo } from './index';
+import { IReposItem, IPersonObjInfo, IState } from './index';
 import { IReducerAction } from './reducer';
 
 export enum varientsActions {
+    CHANGE_STATE_FIELDS = 'CHANGE_STATE_FIELDS',
     CHANGE_LOADING = 'CHANGE_LOADING',
     CHANGE_LOADING_NEWPAGE = 'CHANGE_LOADING_NEWPAGE',
     CHANGE_IS_SEARCHING = 'CHANGE_IS_SEARCHING',
@@ -12,6 +13,11 @@ export enum varientsActions {
     CHANGE_MAX_PAGE = 'CHANGE_MAX_PAGE',
     CHANGE_COUNT_REPOS = 'CHANGE_COUNT_REPOS',
 }
+
+export const changeStateAction = (data: Partial<IState>): IReducerAction => ({
+    type: varientsActions.CHANGE_STATE_FIELDS,
+    payload: data,
+});
 
 export const changeLoadingAction = (isLoading: boolean): IReducerAction => ({
     type: varientsActions.CHANGE_LOADING,

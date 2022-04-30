@@ -3,7 +3,14 @@ import { varientsActions } from './actions';
 
 export interface IReducerAction {
     type: varientsActions;
-    payload?: Array<IReposItem> | IPersonObjInfo | string | number | boolean | null;
+    payload?:
+        | Array<IReposItem>
+        | IPersonObjInfo
+        | Partial<IState>
+        | string
+        | number
+        | boolean
+        | null;
 }
 
 type TReducerApp = (state: IState, action: IReducerAction) => IState;
@@ -12,6 +19,12 @@ export const appReducer: TReducerApp = (state: IState, action: IReducerAction): 
     const { type, payload } = action;
 
     switch (type) {
+        case varientsActions.CHANGE_STATE_FIELDS:
+            return {
+                ...state,
+                ...(payload as Partial<IState>),
+            };
+
         case varientsActions.CHANGE_LOADING:
             return {
                 ...state,

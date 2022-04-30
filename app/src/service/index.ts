@@ -127,8 +127,8 @@ interface IUserRepoData {
 }
 
 export interface IAnswerReturn {
-    errorText: string;
     data: IPersonObjInfo | Array<IReposItem> | null;
+    errorText?: string;
     countRepos?: number;
 }
 
